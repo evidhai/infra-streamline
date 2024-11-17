@@ -21,12 +21,9 @@ jobs:
                   aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
                   aws-region: eu-west-1
 
-            - name: Install Packer
-              run: |
-                curl -L -o packer.zip https://releases.hashicorp.com/packer/1.7.8/packer_1.7.8_linux_amd64.zip
-                unzip packer.zip
-                sudo mv packer /usr/local/bin/
-                packer --version
+            - name: Setup Packer
+              uses: hashicorp/setup-packer@main
+              id: setup
 
             - name: Validate Packer template
               run: packer validate Packer/ami.pkr.hcl
