@@ -39,8 +39,7 @@ build {
         inline = [
             "sudo sed -i 's|http://archive.ubuntu.com/ubuntu|http://us.archive.ubuntu.com/ubuntu|g' /etc/apt/sources.list",
             "sudo apt-get update -y",
-            "sudo apt-get install -y --fix-broken",
-            "sudo apt-get install -y apache2 --fix-missing apache2",
+            "sudo apt-get install -y apache2 --fix-broken apache2",
             "echo 'Hello, Apache is running!' | sudo tee /var/www/html/index.html"
 
         ]
