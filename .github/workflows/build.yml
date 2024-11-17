@@ -13,6 +13,13 @@ jobs:
             - name: Checkout repository
               uses: actions/checkout@v3
 
+            - name: Configure AWS credentials
+              uses: aws-actions/configure-aws-credentials@v1
+              with:
+                  aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+                  aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+                  aws-region: eu-west-1
+
             - name: Install Packer
               run: |
                 curl -L -o packer.zip https://releases.hashicorp.com/packer/1.7.8/packer_1.7.8_linux_amd64.zip
@@ -26,12 +33,7 @@ jobs:
             - name: Build Packer image
               run: packer build Packer/ami.pkr.hcl
 
-            - name: Configure AWS credentials
-              uses: aws-actions/configure-aws-credentials@v1
-              with:
-                  aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-                  aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-                  aws-region: eu-west-1
+
 
             - name: Initialize Terraform
               run: terraform init infra/
@@ -40,4 +42,4 @@ jobs:
               run: terraform validate Infra/
 
             - name: Apply Terraform
-              run: terraform apply -auto-approve Infra/
+              run: terraform apply -auto-approve Isnfra/
