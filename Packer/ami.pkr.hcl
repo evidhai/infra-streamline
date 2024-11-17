@@ -6,6 +6,16 @@ variable "instance_type" {
     default = "t2.micro"
 }
 
+packer {
+  required_plugins {
+    amazon = {
+      source  = "github.com/hashicorp/amazon"
+      version = "~> 1"
+    }
+  }
+}
+
+
 source "amazon-ebs" "ubuntu" {
     region           = var.aws_region
     instance_type    = var.instance_type
