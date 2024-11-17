@@ -1,0 +1,45 @@
+name: Build and Deploy
+
+on:
+    push:
+        branches:
+            - main
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v3
+
+            - name: Configure AWS credentials
+              uses: aws-actions/configure-aws-credentials@v2
+              with:
+                  aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+                  aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+                  aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
+                  aws-region: eu-west-1
+
+            - name: Install Packer
+              run: |
+                  curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
+                  sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+                  sudo apt-get update && sudo apt-get install packer
+
+            - name: Run Packer
+              run: packer build Packer/ami.pkr.hcl
+
+            - name: Install Terraform
+              run: |
+                  sudo apt-get update && sudo apt-get install -y gnupg software-properties-common curl
+                  curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
+                  sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+                  sudo apt-get update && sudo apt-get install terraform
+
+            - name: Initialize Terraform
+              run: terraform init Infra/
+
+            - name: Apply Terraform
+              run: terraform apply -auto-approve Infra/
+              
