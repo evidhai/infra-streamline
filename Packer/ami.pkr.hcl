@@ -38,6 +38,8 @@ build {
     provisioner "shell" {
         inline = [
             "sudo sed -i 's|http://archive.ubuntu.com/ubuntu|http://us.archive.ubuntu.com/ubuntu|g' /etc/apt/sources.list",
+            "sudo add-apt-repository universe",
+            "sudo add-apt-repository multiverse",
             "sudo apt-get update -y",
             "sudo apt-get install -y apache2-bin mime-support ssl-cert",
             "sudo apt-get install -y apache2 --fix-broken apache2",
