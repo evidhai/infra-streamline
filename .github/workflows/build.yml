@@ -36,15 +36,14 @@ jobs:
             # - name: Build Packer image
             #   run: packer build Packer/ami.pkr.hcl
               
-            - name: Change to infra directory
-              run: cd Infra
-
-
             - name: Initialize Terraform
+              working-directory: Infra
               run: terraform init
 
             - name: Validate Terraform
+              working-directory: Infra
               run: terraform validate
 
             - name: Apply Terraform
+              working-directory: Infra
               run: terraform apply -auto-approve
