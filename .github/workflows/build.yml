@@ -21,10 +21,10 @@ jobs:
                 packer --version
 
             - name: Validate Packer template
-              run: packer validate packer/ami.pkr.hcl
+              run: packer validate Packer/ami.pkr.hcl
 
             - name: Build Packer image
-              run: packer build packer/ami.pkr.hcl
+              run: packer build Packer/ami.pkr.hcl
 
             - name: Configure AWS credentials
               uses: aws-actions/configure-aws-credentials@v1
@@ -37,7 +37,7 @@ jobs:
               run: terraform init infra/
 
             - name: Validate Terraform
-              run: terraform validate infra/
+              run: terraform validate Infra/
 
             - name: Apply Terraform
-              run: terraform apply -auto-approve infra/
+              run: terraform apply -auto-approve Infra/
