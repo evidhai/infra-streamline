@@ -1,6 +1,6 @@
 resource "aws_instance" "server" {
   # ami                    = "ami-0fcc0bef51bad3cb2"
-  ami                    = "ami-076039fe8a805d252"
+  ami                    = "ami-001580acbcd798ddf"
   instance_type          = "t2.micro"
   vpc_security_group_ids = ["sg-02cb98388e7165696"]
   user_data              = <<-EOF
