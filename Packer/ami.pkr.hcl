@@ -29,7 +29,7 @@ source "amazon-ebs" "ubuntu" {
         most_recent = true
     }
     ssh_username     = "ubuntu"
-    ami_name         = "vasan-packer-demo-{{timestamp}}"
+    ami_name         = "vasan-packer-demo-1-{{timestamp}}"
 }
 
 build {
