@@ -31,6 +31,9 @@ jobs:
             - name: Validate Packer template
               run: packer validate Packer/ami.pkr.hcl
 
+            - name: Packer init image
+              run: packer init Packer/ami.pkr.hcl
+
             - name: Build Packer image
               run: packer build Packer/ami.pkr.hcl
 
