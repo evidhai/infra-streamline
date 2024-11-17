@@ -7,6 +7,7 @@ resource "aws_instance" "server" {
               #!/bin/bash
               systemctl start httpd
               systemctl enable httpd
+              EOF
 }
 
 output "instance_public_ip" {
