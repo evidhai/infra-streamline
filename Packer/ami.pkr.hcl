@@ -37,6 +37,7 @@ build {
 
     provisioner "shell" {
         inline = [
+            "sudo sed -i 's|http://archive.ubuntu.com/ubuntu|http://us.archive.ubuntu.com/ubuntu|g' /etc/apt/sources.list",
             "sudo apt-get update -y",
             "sudo apt-get install -y apache2 --fix-missing apache2",
             "echo 'Hello, Apache is running!' | sudo tee /var/www/html/index.html"
